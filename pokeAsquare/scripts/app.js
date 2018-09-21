@@ -1,15 +1,21 @@
+//Variables for classes and IDs and other data 
 const $squares = $('.squares');
 const $clickSquare = $('.clickSquare');
+const $round = $('#round');
+const $timer = $('#timer')
 let score = 0;
 const $h1 = $('h1')
-let time = 10;
+//round duration in seconds//
+let time = 20;
 let round = 1;
+
 // let blue = 'blue'
 // let red = 'red'
 // let green = 'green'
 
 
 //function to generate colors randomly//
+// the squares should populate with a random color
 const generateRandomColors = () =>{
 	//create array to pick numbers from// 
 	const colorArr = ['blue', 'red', 'green', 'orange', 'violet', 'yellow']
@@ -69,9 +75,26 @@ const checkValidPoke = (colorAsString) =>{
 } 
 
 
+const setTimer = () => {
+	const interval = setInterval(() =>{
+		//decreasing tim by one after every 1000 milliseconds
+		time--;
+		if (time === 0 ) {
+			clearInterval(interval);
+			//after timer reaches zero we manipulate the DOM and update the rounds//
+			round++
+			$round.text('Round: ' + round);
+		}
+		//manipulate DOM to update timer
+		$timer.text('timer: ' + time + 'sec');
+	}, 1000)
+}
+
 //event listener and handler for clicking Begin button// 
 $('button').on('click', () => { 
-creatSquares(100)
+creatSquares(200)
+// When the user clicks begin the timer should start,
+setTimer();
 //WHen the user clicks the button, it populates the squares
 	console.log('click is on');
 });
